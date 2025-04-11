@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go-Back-N Simulation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/MotionPathPlugin.min.js"></script>
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(MotionPathPlugin);
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Go-Back-N Protocol</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Concept</a></li>
+            <li class="active"><a href="simulation.html">Simulation</a></li>
+        </ul>
+    </nav>
+
+    <div class="simulation-container">
+        <!-- Left side: Adjustment Panel -->
+        <div class="adjustment-panel">
+            <h2>Simulation Settings</h2>
+            
+            <div class="setting-group">
+                <label for="packet-count">Number of Packets:</label>
+                <input type="number" id="packet-count" min="1" max="20" value="10">
+            </div>
+            
+            <div class="setting-group">
+                <label for="window-size">Window Size:</label>
+                <input type="number" id="window-size" min="1" max="10" value="4">
+            </div>
+            
+            <div class="setting-group">
+                <label>Timeout:</label>
+                <div class="radio-group">
+                    <input type="radio" id="timeout-default" name="timeout-option" checked>
+                    <label for="timeout-default">Default</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="timeout-custom" name="timeout-option">
+                    <label for="timeout-custom">Custom:</label>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="timeout-slider" min="3000" max="15000" step="500" value="7000" disabled>
+                    <span id="timeout-value">7000ms</span>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Animation Speed:</label>
+                <div class="radio-group">
+                    <input type="radio" id="speed-default" name="speed-option" checked>
+                    <label for="speed-default">Default</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="speed-custom" name="speed-option">
+                    <label for="speed-custom">Custom:</label>
+                </div>
+                <div class="slider-container">
+                    <input type="range" id="speed-slider" min="0.5" max="3" step="0.1" value="1" disabled>
+                    <span id="speed-value">1x</span>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label for="error-mode">Packet Loss Mode:</label>
+                <select id="error-mode">
+                    <option value="none">No Errors</option>
+                    <option value="random">Random Errors</option>
+                    <option value="manual">Manual (Click Packets)</option>
+                </select>
+                
+                <div id="error-rate-container" class="slider-container" style="display:none;">
+                    <label for="error-rate">Error Rate:</label>
+                    <input type="range" id="error-rate" min="0" max="100" value="10">
+                    <span id="error-rate-value">10%</span>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button id="start-btn" class="control-button">Start</button>
+                <button id="pause-btn" class="control-button" disabled>Pause</button>
+                <button id="reset-btn" class="control-button">Reset</button>
+            </div>
+        </div>
+        
+        <!-- Middle: Simulation Area -->
+        <div class="simulation-area">
+            <div class="sender-area">
+                <h3>Sender</h3>
+                <div id="sender-window-indicator" class="window-indicator"></div>
+                <div id="sender-packets" class="packet-container"></div>
+            </div>
+            
+            <div class="channel-area">
+                <div id="communication-channel" class="communication-channel"></div>
+            </div>
+            
+            <div class="receiver-area">
+                <h3>Receiver</h3>
+                <div id="receiver-packets" class="packet-container"></div>
+            </div>
+            
+            <div class="color-legend">
+                <h4>Color Legend:</h4>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #3498db;"></div>
+                    <span>Unsent Packet</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #f39c12;"></div>
+                    <span>Packet in Transit</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #2ecc71;"></div>
+                    <span>Acknowledged Packet</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #9b59b6;"></div>
+                    <span>Acknowledgment</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #e74c3c;"></div>
+                    <span>Failed/Lost Packet</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Simulation Log Panel (at the bottom) -->
+    <div class="log-panel-container">
+        <div class="log-panel">
+            <h2>Simulation Log</h2>
+            <div id="simulation-log" class="log-content"></div>
+            <button id="clear-log" class="control-button">Clear Log</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Go-Back-N Protocol Simulation</p>
+    </footer>
+    
+    <script src="js/simulation.js"></script>
+</body>
+</html> 

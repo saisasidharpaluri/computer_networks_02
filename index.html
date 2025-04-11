@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go-Back-N Protocol</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Go-Back-N Protocol</div>
+        <ul class="nav-links">
+            <li class="active"><a href="index.html">Concept</a></li>
+            <li><a href="simulation.html">Simulation</a></li>
+        </ul>
+    </nav>
+
+    <main class="concept-container">
+        <h1>Go-Back-N Protocol Concept</h1>
+        
+        <section class="concept-section">
+            <h2>What is Go-Back-N Protocol?</h2>
+            <p>
+                Go-Back-N is a sliding window protocol that belongs to Automatic Repeat reQuest (ARQ) protocols used in data link and transport layers for reliable data transmission.
+            </p>
+            <p>
+                In Go-Back-N, the sender can transmit multiple frames before receiving an acknowledgment, but is constrained to have no more than a maximum number of frames (the window size) outstanding.
+            </p>
+        </section>
+
+        <section class="concept-section">
+            <h2>Key Characteristics</h2>
+            <ul>
+                <li><strong>Window Size:</strong> Defines the maximum number of frames that can be sent without receiving an acknowledgment</li>
+                <li><strong>Sequence Numbers:</strong> Frames are numbered to maintain order and track acknowledgments</li>
+                <li><strong>Cumulative Acknowledgment:</strong> A single ACK confirms all frames up to a specific sequence number</li>
+                <li><strong>Timeout Mechanism:</strong> If an acknowledgment is not received within a specified timeout period, all unacknowledged frames are retransmitted</li>
+            </ul>
+        </section>
+
+        <section class="concept-section">
+            <h2>How Go-Back-N Works</h2>
+            <h3>Sender's Perspective:</h3>
+            <ol>
+                <li>Maintains a window of up to N unacknowledged frames</li>
+                <li>Continues sending frames until the window is full</li>
+                <li>When an acknowledgment is received, the window slides forward</li>
+                <li>If a timeout occurs before receiving an ACK, the sender retransmits all frames in the current window</li>
+            </ol>
+
+            <h3>Receiver's Perspective:</h3>
+            <ol>
+                <li>Accepts only frames arriving in exact sequence order</li>
+                <li>Discards out-of-order frames without buffering them</li>
+                <li>Sends acknowledgment for the highest in-sequence frame received</li>
+            </ol>
+        </section>
+
+        <section class="concept-section">
+            <h2>Advantages and Disadvantages</h2>
+            <h3>Advantages:</h3>
+            <ul>
+                <li>Simple implementation, especially at the receiver</li>
+                <li>Efficient for low error rates</li>
+                <li>Better channel utilization compared to Stop-and-Wait</li>
+            </ul>
+
+            <h3>Disadvantages:</h3>
+            <ul>
+                <li>Wasteful when errors occur, as correctly received frames may be retransmitted</li>
+                <li>Not efficient in high error rate environments</li>
+                <li>Can lead to unnecessary retransmissions when only one frame is corrupted</li>
+            </ul>
+        </section>
+
+        <section class="concept-section">
+            <h2>Try the Simulation</h2>
+            <p>
+                To better understand how Go-Back-N works in practice, try our interactive
+                <a href="simulation.html" class="sim-button">Simulation</a>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Go-Back-N Protocol Simulation</p>
+    </footer>
+</body>
+</html> 
